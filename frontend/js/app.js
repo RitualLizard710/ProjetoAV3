@@ -319,3 +319,28 @@ function abrirCadastroAluno() {
 
     `;
 }
+
+function salvarAluno() {
+
+    const nome =
+        document.getElementById("nomeAluno").value;
+
+    const email =
+        document.getElementById("emailAluno").value;
+
+    if(nome === "" || email === "") {
+
+        alert(
+            "Nome e Email são obrigatórios."
+        );
+
+        return;
+    }
+
+    alert(
+        "Aluno salvo com sucesso!"
+    );
+
+    mostrarAlunos();
+
+}
