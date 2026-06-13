@@ -1,16 +1,175 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reforço Escolar</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
-    <h1>Sistema de Reforço Escolar</h1>
+    <!-- LOGIN -->
+    <section id="telaLogin" class="tela-login">
+
+        <div class="card-login">
+
+            <div class="topo-login">
+                <i class="fa-solid fa-graduation-cap fa-2x"></i>
+                <h1>Reforço Escolar</h1>
+            </div>
+
+            <div class="conteudo-login">
+
+                <h2>Entrar</h2>
+
+                <p>
+                    Faça login para acessar o sistema.
+                </p>
+
+                <div class="campo-login">
+                    <label>Email</label>
+                    <input type="email" id="emailLogin">
+                </div>
+
+                <div class="campo-login">
+                    <label>Senha</label>
+                    <input type="password" id="senhaLogin">
+                </div>
+
+                <button class="botao-azul" onclick="entrar()">
+                    Entrar
+                </button>
+
+                <br><br>
+
+                <button class="botao-contorno" onclick="abrirRegistro()">
+                    Criar Conta
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- REGISTRO -->
+    <section id="telaRegistro" class="tela-login oculto">
+
+        <div class="card-login">
+
+            <div class="topo-login">
+                <i class="fa-solid fa-user-plus fa-2x"></i>
+                <h1>Cadastro</h1>
+            </div>
+
+            <div class="conteudo-login">
+
+                <div class="campo-login">
+                    <label>Nome</label>
+                    <input type="text">
+                </div>
+
+                <div class="campo-login">
+                    <label>Email</label>
+                    <input type="email">
+                </div>
+
+                <div class="campo-login">
+                    <label>Senha</label>
+                    <input type="password">
+                </div>
+
+                <button class="botao-azul">
+                    Registrar
+                </button>
+
+                <br><br>
+
+                <button class="botao-contorno" onclick="voltarLogin()">
+                    Voltar
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- APLICAÇÃO -->
+    <section id="aplicacao" class="aplicacao oculto">
+
+        <header class="topbar">
+
+            <div class="marca">
+                <i class="fa-solid fa-school"></i>
+                Reforço Escolar
+            </div>
+
+            <button class="botao-perfil-topo">
+
+                <div class="avatar-topo">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <span>Administrador</span>
+
+            </button>
+
+        </header>
+
+        <aside class="menu-lateral">
+
+            <button class="item-menu ativo">
+                <i class="fa-solid fa-house"></i>
+                <span>Início</span>
+            </button>
+
+            <button class="item-menu">
+                <i class="fa-solid fa-user-graduate"></i>
+                <span>Alunos</span>
+            </button>
+
+            <button class="item-menu">
+                <i class="fa-solid fa-book"></i>
+                <span>Cursos</span>
+            </button>
+
+            <button class="item-menu">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Matrículas</span>
+            </button>
+
+            <button class="item-menu">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Atendimentos</span>
+            </button>
+
+        </aside>
+
+        <main class="principal">
+
+            <div class="container">
+
+                <h1>Dashboard</h1>
+
+                <p class="subtitulo">
+                    Bem-vindo ao sistema.
+                </p>
+
+            </div>
+
+        </main>
+
+    </section>
 
     <script src="js/app.js"></script>
 
 </body>
+
 </html>
