@@ -2396,3 +2396,24 @@ function salvarEdicaoAtendimento(indice) {
     mostrarAtendimentos();
 
 }
+
+function ativarMenu(idMenu) {
+
+    const menus =
+        document.querySelectorAll(
+            ".item-menu"
+        );
+
+    menus.forEach((menu) => {
+
+        menu.classList.remove(
+            "ativo"
+        );
+
+    });
+
+    document
+        .getElementById(idMenu)
+        .classList.add("ativo");
+
+}
