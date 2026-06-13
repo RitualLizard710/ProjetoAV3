@@ -496,15 +496,27 @@ function mostrarAtendimentos() {
 
                 <td>
 
-                    <button
-                        class="botao-icone excluir"
-                        onclick="excluirAtendimento(${indice})">
+    <div class="acoes-tabela">
 
-                        <i class="fa-solid fa-trash"></i>
+        <button
+            class="botao-icone editar"
+            onclick="editarAtendimento(${indice})">
 
-                    </button>
+            <i class="fa-solid fa-pen"></i>
 
-                </td>
+        </button>
+
+        <button
+            class="botao-icone excluir"
+            onclick="excluirAtendimento(${indice})">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+    </div>
+
+</td>
 
             </tr>
 
@@ -2171,5 +2183,167 @@ function salvarEdicaoMatricula(indice) {
     );
 
     mostrarMatriculas();
+
+}
+
+function editarAtendimento(indice) {
+
+    const atendimento =
+        atendimentos[indice];
+
+    let opcoesAlunos = "";
+
+    alunos.forEach((aluno) => {
+
+        opcoesAlunos += `
+            <option
+                ${aluno.nome === atendimento.aluno ? "selected" : ""}>
+
+                ${aluno.nome}
+
+            </option>
+        `;
+
+    });
+
+    document.getElementById("conteudo").innerHTML = `
+
+        <h1>Editar Atendimento</h1>
+
+        <p class="subtitulo">
+
+            Atualize os dados do atendimento.
+
+        </p>
+
+        <div class="card-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>Aluno</label>
+
+                    <select id="alunoAtendimento">
+
+                        ${opcoesAlunos}
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Data</label>
+
+                    <input
+                        type="date"
+                        id="dataAtendimento"
+                        value="${atendimento.data}">
+
+                </div>
+
+                <div>
+
+                    <label>Horário</label>
+
+                    <input
+                        type="time"
+                        id="horaAtendimento"
+                        value="${atendimento.horario}">
+
+                </div>
+
+                <div>
+
+                    <label>Status</label>
+
+                    <select id="statusAtendimento">
+
+                        <option ${atendimento.status === "Agendado" ? "selected" : ""}>
+                            Agendado
+                        </option>
+
+                        <option ${atendimento.status === "Realizado" ? "selected" : ""}>
+                            Realizado
+                        </option>
+
+                        <option ${atendimento.status === "Cancelado" ? "selected" : ""}>
+                            Cancelado
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="linha-inteira">
+
+                    <label>Motivo</label>
+
+                    <textarea
+                        id="motivoAtendimento">${atendimento.motivo}</textarea>
+
+                </div>
+
+            </div>
+
+            <div class="acoes-formulario">
+
+                <button
+                    class="botao-cinza"
+                    onclick="mostrarAtendimentos()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="botao-azul"
+                    onclick="salvarEdicaoAtendimento(${indice})">
+
+                    Salvar Alterações
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+function salvarEdicaoAtendimento(indice) {
+
+    atendimentos[indice].aluno =
+        document.getElementById(
+            "alunoAtendimento"
+        ).value;
+
+    atendimentos[indice].data =
+        document.getElementById(
+            "dataAtendimento"
+        ).value;
+
+    atendimentos[indice].horario =
+        document.getElementById(
+            "horaAtendimento"
+        ).value;
+
+    atendimentos[indice].status =
+        document.getElementById(
+            "statusAtendimento"
+        ).value;
+
+    atendimentos[indice].motivo =
+        document.getElementById(
+            "motivoAtendimento"
+        ).value;
+
+    localStorage.setItem(
+        "atendimentos",
+        JSON.stringify(atendimentos)
+    );
+
+    mostrarAtendimentos();
 
 }
