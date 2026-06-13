@@ -270,7 +270,9 @@ function mostrarCursos() {
 
                 <input
                     type="text"
-                    placeholder="Buscar curso">
+                    id="buscaCurso"
+                    placeholder="Buscar curso"
+                    onkeyup="filtrarCursos()">
 
             </div>
 
@@ -1478,6 +1480,36 @@ function filtrarAlunos() {
     const texto =
         document
             .getElementById("buscaAluno")
+            .value
+            .toLowerCase();
+
+    const linhas =
+        document.querySelectorAll(
+            "tbody tr"
+        );
+
+    linhas.forEach((linha) => {
+
+        if(
+            linha.textContent
+                .toLowerCase()
+                .includes(texto)
+        ){
+            linha.style.display = "";
+        }
+        else{
+            linha.style.display = "none";
+        }
+
+    });
+
+}
+
+function filtrarCursos() {
+
+    const texto =
+        document
+            .getElementById("buscaCurso")
             .value
             .toLowerCase();
 
