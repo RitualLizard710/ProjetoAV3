@@ -315,28 +315,39 @@ function mostrarMatriculas() {
 
     let linhas = "";
 
-    matriculas.forEach((matricula) => {
+    matriculas.forEach((matricula, indice) => {
 
         linhas += `
 
             <tr>
 
-                <td>${matricula.aluno}</td>
+    <td>${matricula.aluno}</td>
 
-                <td>${matricula.curso}</td>
+    <td>${matricula.curso}</td>
 
-                <td>${matricula.data}</td>
+    <td>${matricula.data}</td>
 
-                <td>
+    <td>
 
-                    <span class="etiqueta disponivel">
-                        Ativa
-                    </span>
+        <span class="etiqueta disponivel">
+            Ativa
+        </span>
 
-                </td>
+    </td>
 
-            </tr>
+    <td>
 
+        <button
+            class="botao-icone excluir"
+            onclick="excluirMatricula(${indice})">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+    </td>
+
+</tr>
         `;
     });
 
@@ -345,7 +356,7 @@ function mostrarMatriculas() {
         linhas = `
             <tr>
 
-                <td colspan="4"
+                <td colspan="5"
                     class="estado-vazio">
 
                     Nenhuma matrícula cadastrada.
@@ -390,6 +401,7 @@ function mostrarMatriculas() {
                         <th>Curso</th>
                         <th>Data</th>
                         <th>Status</th>
+                        <th>Ações</th>
 
                     </tr>
 
@@ -922,4 +934,42 @@ function salvarMatricula() {
     );
 
     mostrarMatriculas();
+}
+
+function excluirMatricula(indice) {
+
+    if(!confirm(
+        "Deseja cancelar esta matrícula?"
+    )){
+        return;
+    }
+
+    const matricula =
+        matriculas[indice];
+
+    const curso =
+        cursos.find(
+            c => c.nome === matricula.curso
+        );
+
+    if(curso && curso.vagasOcupadas > 0){
+
+        curso.vagasOcupadas--;
+
+    }
+
+    matriculas.splice(indice, 1);
+
+    localStorage.setItem(
+        "matriculas",
+        JSON.stringify(matriculas)
+    );
+
+    localStorage.setItem(
+        "cursos",
+        JSON.stringify(cursos)
+    );
+
+    mostrarMatriculas();
+
 }
