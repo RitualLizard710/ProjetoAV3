@@ -429,19 +429,17 @@ function mostrarMatriculas() {
 
     </div>
 
+    <div></div>
+
+    <button
+        class="botao-azul"
+        onclick="abrirMatricula()">
+
+        Nova Matrícula
+
+    </button>
+
 </div>
-
-        <div class="grade-acoes">
-
-            <button
-                class="botao-azul"
-                onclick="abrirMatricula()">
-
-                Nova Matrícula
-
-            </button>
-
-        </div>
 
         <div class="card-tabela">
 
@@ -563,41 +561,26 @@ function mostrarAtendimentos() {
 
     </div>
 
-    <select
+<select
         id="filtroStatus"
         onchange="filtrarAtendimentos()">
 
-        <option value="Todos">
-            Todos
-        </option>
+        <option value="Todos">Todos</option>
+        <option value="Agendado">Agendado</option>
+        <option value="Realizado">Realizado</option>
+        <option value="Cancelado">Cancelado</option>
 
-        <option value="Agendado">
-            Agendado
-        </option>
+   </select>
 
-        <option value="Realizado">
-            Realizado
-        </option>
+    <button
+        class="botao-azul"
+        onclick="abrirAtendimento()">
 
-        <option value="Cancelado">
-            Cancelado
-        </option>
+        Agendar Atendimento
 
-    </select>
+    </button>
 
 </div>
-
-        <div class="grade-acoes">
-
-            <button
-                class="botao-azul"
-                onclick="abrirAtendimento()">
-
-                Agendar Atendimento
-
-            </button>
-
-        </div>
 
         <div class="card-tabela">
 
