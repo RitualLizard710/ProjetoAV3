@@ -1,4 +1,7 @@
-let alunos = [];
+let alunos =
+    JSON.parse(
+        localStorage.getItem("alunos")
+    ) || [];
 
 function entrar() {
 
@@ -362,6 +365,11 @@ function salvarAluno() {
         observacoes
     });
 
+    localStorage.setItem(
+    "alunos",
+    JSON.stringify(alunos)
+);
+
     mostrarAlunos();
 
 }
@@ -371,6 +379,11 @@ function excluirAluno(indice) {
     if(confirm("Deseja excluir este aluno?")) {
 
         alunos.splice(indice, 1);
+
+        localStorage.setItem(
+    "alunos",
+    JSON.stringify(alunos)
+);
 
         mostrarAlunos();
 
