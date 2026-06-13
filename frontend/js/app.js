@@ -208,8 +208,114 @@ function mostrarPerfil() {
 
 function abrirCadastroAluno() {
 
-    alert(
-        "Na próxima etapa vamos abrir o formulário de cadastro de aluno."
-    );
+    document.getElementById("conteudo").innerHTML = `
 
+        <h1>Cadastrar Aluno</h1>
+
+        <p class="subtitulo">
+            Preencha os dados do aluno.
+        </p>
+
+        <div class="card-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>
+                        Nome Completo
+                        <span class="obrigatorio">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nomeAluno">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Email
+                        <span class="obrigatorio">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="emailAluno">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Telefone
+                    </label>
+
+                    <input
+                        type="text"
+                        id="telefoneAluno">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Nível
+                    </label>
+
+                    <select id="nivelAluno">
+
+                        <option>
+                            Básico
+                        </option>
+
+                        <option>
+                            Intermediário
+                        </option>
+
+                        <option>
+                            Avançado
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="linha-inteira">
+
+                    <label>
+                        Observações
+                    </label>
+
+                    <textarea
+                        id="observacoesAluno"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="acoes-formulario">
+
+                <button
+                    class="botao-cinza"
+                    onclick="mostrarAlunos()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="botao-azul"
+                    onclick="salvarAluno()">
+
+                    Salvar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
 }
