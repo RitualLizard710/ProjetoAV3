@@ -13,6 +13,11 @@ let matriculas =
         localStorage.getItem("matriculas")
     ) || [];
 
+let atendimentos =
+    JSON.parse(
+        localStorage.getItem("atendimentos")
+    ) || [];
+
 function entrar() {
 
     document
@@ -421,12 +426,107 @@ function mostrarMatriculas() {
 
 function mostrarAtendimentos() {
 
+    let linhas = "";
+
+    atendimentos.forEach((atendimento, indice) => {
+
+        linhas += `
+
+            <tr>
+
+                <td>${atendimento.aluno}</td>
+
+                <td>${atendimento.data}</td>
+
+                <td>${atendimento.horario}</td>
+
+                <td>${atendimento.motivo}</td>
+
+                <td>${atendimento.status}</td>
+
+                <td>
+
+                    <button
+                        class="botao-icone excluir"
+                        onclick="excluirAtendimento(${indice})">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+    });
+
+    if(atendimentos.length === 0){
+
+        linhas = `
+            <tr>
+
+                <td colspan="6"
+                    class="estado-vazio">
+
+                    Nenhum atendimento cadastrado.
+
+                </td>
+
+            </tr>
+        `;
+    }
+
     document.getElementById("conteudo").innerHTML = `
+
         <h1>Atendimentos</h1>
 
         <p class="subtitulo">
+
             Gerenciamento de atendimentos.
+
         </p>
+
+        <div class="grade-acoes">
+
+            <button
+                class="botao-azul"
+                onclick="abrirAtendimento()">
+
+                Agendar Atendimento
+
+            </button>
+
+        </div>
+
+        <div class="card-tabela">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Aluno</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Motivo</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${linhas}
+
+                </tbody>
+
+            </table>
+
+        </div>
     `;
 }
 
@@ -972,4 +1072,185 @@ function excluirMatricula(indice) {
 
     mostrarMatriculas();
 
+}
+
+function abrirAtendimento() {
+
+    if(alunos.length === 0){
+
+        alert(
+            "Cadastre um aluno primeiro."
+        );
+
+        return;
+    }
+
+    let opcoes = "";
+
+    alunos.forEach((aluno) => {
+
+        opcoes += `
+            <option>
+                ${aluno.nome}
+            </option>
+        `;
+    });
+
+    document.getElementById("conteudo").innerHTML = `
+
+        <h1>Agendar Atendimento</h1>
+
+        <p class="subtitulo">
+
+            Novo atendimento.
+
+        </p>
+
+        <div class="card-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>Aluno *</label>
+
+                    <select id="alunoAtendimento">
+
+                        ${opcoes}
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Data *</label>
+
+                    <input
+                        type="date"
+                        id="dataAtendimento">
+
+                </div>
+
+                <div>
+
+                    <label>Horário *</label>
+
+                    <input
+                        type="time"
+                        id="horaAtendimento">
+
+                </div>
+
+                <div>
+
+                    <label>Status</label>
+
+                    <select id="statusAtendimento">
+
+                        <option>Agendado</option>
+                        <option>Realizado</option>
+                        <option>Cancelado</option>
+
+                    </select>
+
+                </div>
+
+                <div class="linha-inteira">
+
+                    <label>Motivo</label>
+
+                    <textarea
+                        id="motivoAtendimento"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="acoes-formulario">
+
+                <button
+                    class="botao-cinza"
+                    onclick="mostrarAtendimentos()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="botao-azul"
+                    onclick="salvarAtendimento()">
+
+                    Salvar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+function salvarAtendimento() {
+
+    const aluno =
+        document.getElementById(
+            "alunoAtendimento"
+        ).value;
+
+    const data =
+        document.getElementById(
+            "dataAtendimento"
+        ).value;
+
+    const horario =
+        document.getElementById(
+            "horaAtendimento"
+        ).value;
+
+    const motivo =
+        document.getElementById(
+            "motivoAtendimento"
+        ).value;
+
+    const status =
+        document.getElementById(
+            "statusAtendimento"
+        ).value;
+
+    atendimentos.push({
+
+        aluno,
+        data,
+        horario,
+        motivo,
+        status
+
+    });
+
+    localStorage.setItem(
+        "atendimentos",
+        JSON.stringify(atendimentos)
+    );
+
+    mostrarAtendimentos();
+
+}
+
+function excluirAtendimento(indice) {
+
+    if(confirm(
+        "Deseja excluir este atendimento?"
+    )) {
+
+        atendimentos.splice(indice, 1);
+
+        localStorage.setItem(
+            "atendimentos",
+            JSON.stringify(atendimentos)
+        );
+
+        mostrarAtendimentos();
+    }
 }
