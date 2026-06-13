@@ -23,6 +23,8 @@ function entrar() {
     document
         .getElementById("telaLogin")
         .classList.add("oculto");
+    
+    carregarDashboard();
 
     document
         .getElementById("aplicacao")
@@ -56,13 +58,8 @@ function voltarLogin() {
 
 function mostrarInicio() {
 
-    document.getElementById("conteudo").innerHTML = `
-        <h1>Dashboard</h1>
+    carregarDashboard();
 
-        <p class="subtitulo">
-            Visão geral do sistema.
-        </p>
-    `;
 }
 
 function mostrarAlunos() {
@@ -1253,4 +1250,223 @@ function excluirAtendimento(indice) {
 
         mostrarAtendimentos();
     }
+}
+
+function carregarDashboard() {
+
+    const totalAlunos =
+        alunos.length;
+
+    const totalCursos =
+        cursos.length;
+
+    const totalMatriculas =
+        matriculas.length;
+
+    const totalAtendimentos =
+        atendimentos.filter(
+            atendimento =>
+                atendimento.status === "Agendado"
+        ).length;
+
+    let proximosAtendimentos = "";
+
+    atendimentos
+        .filter(
+            atendimento =>
+                atendimento.status === "Agendado"
+        )
+        .slice(0, 5)
+        .forEach((atendimento) => {
+
+            proximosAtendimentos += `
+                <tr>
+
+                    <td>${atendimento.aluno}</td>
+
+                    <td>${atendimento.data}</td>
+
+                    <td>${atendimento.horario}</td>
+
+                </tr>
+            `;
+
+        });
+
+    if(proximosAtendimentos === ""){
+
+        proximosAtendimentos = `
+            <tr>
+
+                <td colspan="3">
+
+                    Nenhum atendimento agendado.
+
+                </td>
+
+            </tr>
+        `;
+    }
+
+    document.getElementById("conteudo").innerHTML = `
+
+        <h1>Dashboard</h1>
+
+        <p class="subtitulo">
+
+            Visão geral do sistema.
+
+        </p>
+
+        <div class="grade-cards">
+
+            <div class="card-info">
+
+                <i class="fa-solid fa-user-graduate fa-2x"></i>
+
+                <div class="numero-card">
+
+                    ${totalAlunos}
+
+                </div>
+
+                <div class="texto-card">
+
+                    Total de Alunos
+
+                </div>
+
+            </div>
+
+            <div class="card-info">
+
+                <i class="fa-solid fa-book fa-2x"></i>
+
+                <div class="numero-card">
+
+                    ${totalCursos}
+
+                </div>
+
+                <div class="texto-card">
+
+                    Total de Cursos
+
+                </div>
+
+            </div>
+
+            <div class="card-info">
+
+                <i class="fa-solid fa-clipboard-list fa-2x"></i>
+
+                <div class="numero-card">
+
+                    ${totalMatriculas}
+
+                </div>
+
+                <div class="texto-card">
+
+                    Matrículas Ativas
+
+                </div>
+
+            </div>
+
+            <div class="card-info">
+
+                <i class="fa-solid fa-calendar-days fa-2x"></i>
+
+                <div class="numero-card">
+
+                    ${totalAtendimentos}
+
+                </div>
+
+                <div class="texto-card">
+
+                    Atendimentos Agendados
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <h2 class="titulo-rapido">
+
+            Ações Rápidas
+
+        </h2>
+
+        <div class="grade-acoes">
+
+            <button
+                class="botao-azul"
+                onclick="abrirCadastroAluno()">
+
+                Cadastrar Aluno
+
+            </button>
+
+            <button
+                class="botao-azul"
+                onclick="abrirCadastroCurso()">
+
+                Criar Curso
+
+            </button>
+
+            <button
+                class="botao-azul"
+                onclick="abrirMatricula()">
+
+                Nova Matrícula
+
+            </button>
+
+            <button
+                class="botao-azul"
+                onclick="abrirAtendimento()">
+
+                Agendar Atendimento
+
+            </button>
+
+        </div>
+
+        <div class="painel">
+
+            <div class="cabecalho-painel">
+
+                Próximos Atendimentos
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Aluno</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${proximosAtendimentos}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
 }
