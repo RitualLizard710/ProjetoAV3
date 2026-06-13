@@ -1084,11 +1084,17 @@ function abrirMatricula() {
 
                     <label>Aluno *</label>
 
-                    <select id="alunoMatricula">
+                    <div class="autocomplete">
 
-                        ${opcoesAlunos}
+    <input
+        type="text"
+        id="alunoMatricula"
+        placeholder="Digite o nome do aluno"
+        oninput="filtrarSugestoesAlunos(this.value, 'listaAlunosMatricula')">
 
-                    </select>
+    <div id="listaAlunosMatricula" class="sugestoes"></div>
+
+</div>
 
                 </div>
 
@@ -1272,11 +1278,17 @@ function abrirAtendimento() {
 
                     <label>Aluno *</label>
 
-                    <select id="alunoAtendimento">
+                    <div class="autocomplete">
 
-                        ${opcoes}
+    <input
+        type="text"
+        id="alunoAtendimento"
+        placeholder="Digite o nome do aluno"
+        oninput="filtrarSugestoesAlunos(this.value, 'listaAlunosAtendimento')">
 
-                    </select>
+    <div id="listaAlunosAtendimento" class="sugestoes"></div>
+
+</div>
 
                 </div>
 
@@ -2518,4 +2530,41 @@ function registrar() {
 
     voltarLogin();
 
+}
+
+function filtrarSugestoesAlunos(texto, idLista) {
+
+    const lista = document.getElementById(idLista);
+
+    lista.innerHTML = "";
+
+    if (texto.trim() === "") {
+        return;
+    }
+
+    const filtrados = alunos.filter(aluno =>
+        aluno.nome.toLowerCase().includes(texto.toLowerCase())
+    );
+
+    filtrados.forEach(aluno => {
+
+        const div = document.createElement("div");
+
+        div.classList.add("sugestao-item");
+
+        div.innerText = aluno.nome;
+
+        div.onclick = () => {
+
+            if (idLista === "listaAlunosMatricula") {
+                document.getElementById("alunoMatricula").value = aluno.nome;
+            } else {
+                document.getElementById("alunoAtendimento").value = aluno.nome;
+            }
+
+            lista.innerHTML = "";
+        };
+
+        lista.appendChild(div);
+    });
 }
