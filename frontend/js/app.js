@@ -48,11 +48,117 @@ function mostrarInicio() {
 function mostrarAlunos() {
 
     document.getElementById("conteudo").innerHTML = `
+
         <h1>Alunos</h1>
 
         <p class="subtitulo">
-            Gerenciamento de alunos.
+            Gerenciamento de alunos cadastrados.
         </p>
+
+        <div class="card-filtros">
+
+            <div class="campo-busca">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    placeholder="Buscar aluno">
+            </div>
+
+            <div></div>
+
+            <button
+                class="botao-azul"
+                onclick="abrirCadastroAluno()">
+
+                Cadastrar Aluno
+
+            </button>
+
+        </div>
+
+        <div class="card-tabela">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Nível</th>
+                        <th>Ações</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>João Silva</td>
+                        <td>joao@email.com</td>
+                        <td>(71)99999-1111</td>
+
+                        <td>
+                            <span class="etiqueta basico">
+                                Básico
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <div class="acoes-tabela">
+
+                                <button class="botao-icone editar">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+
+                                <button class="botao-icone excluir">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>Maria Souza</td>
+                        <td>maria@email.com</td>
+                        <td>(71)99999-2222</td>
+
+                        <td>
+                            <span class="etiqueta intermediario">
+                                Intermediário
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <div class="acoes-tabela">
+
+                                <button class="botao-icone editar">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+
+                                <button class="botao-icone excluir">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
     `;
 }
 
