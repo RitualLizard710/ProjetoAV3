@@ -145,29 +145,49 @@ function mostrarAlunos() {
 
         <div class="card-filtros">
 
-            <div class="campo-busca">
+    <div class="campo-busca">
 
-                <i class="fa-solid fa-magnifying-glass"></i>
+        <i class="fa-solid fa-magnifying-glass"></i>
 
-                <input
-                    type="text"
-                    id="buscaAluno"
-                    placeholder="Buscar aluno"
-                    onkeyup="filtrarAlunos()">
+        <input
+            type="text"
+            id="buscaAluno"
+            placeholder="Buscar aluno"
+            onkeyup="filtrarAlunos()">
 
-            </div>
+    </div>
 
-            <div></div>
+    <select
+        id="filtroNivelAluno"
+        onchange="filtrarAlunos()">
 
-            <button
-                class="botao-azul"
-                onclick="abrirCadastroAluno()">
+        <option value="Todos">
+            Todos os níveis
+        </option>
 
-                Cadastrar Aluno
+        <option value="Básico">
+            Básico
+        </option>
 
-            </button>
+        <option value="Intermediário">
+            Intermediário
+        </option>
 
-        </div>
+        <option value="Avançado">
+            Avançado
+        </option>
+
+    </select>
+
+    <button
+        class="botao-azul"
+        onclick="abrirCadastroAluno()">
+
+        Cadastrar Aluno
+
+    </button>
+
+</div>
 
         <div class="card-tabela">
 
@@ -284,29 +304,45 @@ function mostrarCursos() {
 
         <div class="card-filtros">
 
-            <div class="campo-busca">
+    <div class="campo-busca">
 
-                <i class="fa-solid fa-magnifying-glass"></i>
+        <i class="fa-solid fa-magnifying-glass"></i>
 
-                <input
-                    type="text"
-                    id="buscaCurso"
-                    placeholder="Buscar curso"
-                    onkeyup="filtrarCursos()">
+        <input
+            type="text"
+            id="buscaCurso"
+            placeholder="Buscar curso"
+            onkeyup="filtrarCursos()">
 
-            </div>
+    </div>
 
-            <div></div>
+    <select
+        id="filtroStatusCurso"
+        onchange="filtrarCursos()">
 
-            <button
-                class="botao-azul"
-                onclick="abrirCadastroCurso()">
+        <option value="Todos">
+            Todos
+        </option>
 
-                Cadastrar Curso
+        <option value="Disponível">
+            Disponível
+        </option>
 
-            </button>
+        <option value="Lotado">
+            Lotado
+        </option>
 
-        </div>
+    </select>
+
+    <button
+        class="botao-azul"
+        onclick="abrirCadastroCurso()">
+
+        Cadastrar Curso
+
+    </button>
+
+</div>
 
         <div class="card-tabela">
 
@@ -1574,6 +1610,11 @@ function filtrarAlunos() {
             .value
             .toLowerCase();
 
+    const nivelSelecionado =
+        document
+            .getElementById("filtroNivelAluno")
+            .value;
+
     const linhas =
         document.querySelectorAll(
             "tbody tr"
@@ -1581,16 +1622,26 @@ function filtrarAlunos() {
 
     linhas.forEach((linha) => {
 
-        if(
-            linha.textContent
-                .toLowerCase()
-                .includes(texto)
-        ){
-            linha.style.display = "";
-        }
-        else{
-            linha.style.display = "none";
-        }
+        const conteudo =
+            linha.textContent.toLowerCase();
+
+        const nivel =
+            linha.children[3]
+                ?.textContent
+                .trim();
+
+        const passaBusca =
+            conteudo.includes(texto);
+
+        const passaNivel =
+            nivelSelecionado === "Todos"
+            ||
+            nivel === nivelSelecionado;
+
+        linha.style.display =
+            passaBusca && passaNivel
+            ? ""
+            : "none";
 
     });
 
@@ -1604,6 +1655,11 @@ function filtrarCursos() {
             .value
             .toLowerCase();
 
+    const statusSelecionado =
+        document
+            .getElementById("filtroStatusCurso")
+            .value;
+
     const linhas =
         document.querySelectorAll(
             "tbody tr"
@@ -1611,16 +1667,26 @@ function filtrarCursos() {
 
     linhas.forEach((linha) => {
 
-        if(
-            linha.textContent
-                .toLowerCase()
-                .includes(texto)
-        ){
-            linha.style.display = "";
-        }
-        else{
-            linha.style.display = "none";
-        }
+        const conteudo =
+            linha.textContent.toLowerCase();
+
+        const status =
+            linha.children[4]
+                ?.textContent
+                .trim();
+
+        const passaBusca =
+            conteudo.includes(texto);
+
+        const passaStatus =
+            statusSelecionado === "Todos"
+            ||
+            status === statusSelecionado;
+
+        linha.style.display =
+            passaBusca && passaStatus
+            ? ""
+            : "none";
 
     });
 
