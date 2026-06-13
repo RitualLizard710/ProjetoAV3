@@ -205,3 +205,11 @@ function mostrarPerfil() {
         </p>
     `;
 }
+
+function abrirCadastroAluno() {
+
+    alert(
+        "Na próxima etapa vamos abrir o formulário de cadastro de aluno."
+    );
+
+}
