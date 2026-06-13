@@ -143,7 +143,9 @@ function mostrarAlunos() {
 
                 <input
                     type="text"
-                    placeholder="Buscar aluno">
+                    id="buscaAluno"
+                    placeholder="Buscar aluno"
+                    onkeyup="filtrarAlunos()">
 
             </div>
 
@@ -1469,4 +1471,34 @@ function carregarDashboard() {
         </div>
 
     `;
+}
+
+function filtrarAlunos() {
+
+    const texto =
+        document
+            .getElementById("buscaAluno")
+            .value
+            .toLowerCase();
+
+    const linhas =
+        document.querySelectorAll(
+            "tbody tr"
+        );
+
+    linhas.forEach((linha) => {
+
+        if(
+            linha.textContent
+                .toLowerCase()
+                .includes(texto)
+        ){
+            linha.style.display = "";
+        }
+        else{
+            linha.style.display = "none";
+        }
+
+    });
+
 }
