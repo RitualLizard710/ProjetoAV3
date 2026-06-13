@@ -1,3 +1,8 @@
+let usuarios =
+    JSON.parse(
+        localStorage.getItem("usuarios")
+    ) || [];
+
 let alunos =
     JSON.parse(
         localStorage.getItem("alunos")
@@ -20,15 +25,42 @@ let atendimentos =
 
 function entrar() {
 
+    const email =
+        document.getElementById(
+            "emailLogin"
+        ).value;
+
+    const senha =
+        document.getElementById(
+            "senhaLogin"
+        ).value;
+
+    const usuario =
+        usuarios.find(
+            usuario =>
+                usuario.email === email
+                &&
+                usuario.senha === senha
+        );
+
+    if(!usuario){
+
+        alert(
+            "Email ou senha inválidos."
+        );
+
+        return;
+    }
+
     document
         .getElementById("telaLogin")
         .classList.add("oculto");
-    
-    carregarDashboard();
 
     document
         .getElementById("aplicacao")
         .classList.remove("oculto");
+
+    carregarDashboard();
 
 }
 
@@ -2415,5 +2447,75 @@ function ativarMenu(idMenu) {
     document
         .getElementById(idMenu)
         .classList.add("ativo");
+
+}
+
+function registrar() {
+
+    const nome =
+        document.getElementById(
+            "nomeCadastro"
+        ).value;
+
+    const email =
+        document.getElementById(
+            "emailCadastro"
+        ).value;
+
+    const senha =
+        document.getElementById(
+            "senhaCadastro"
+        ).value;
+
+    if(
+        nome === ""
+        ||
+        email === ""
+        ||
+        senha === ""
+    ){
+
+        alert(
+            "Preencha todos os campos."
+        );
+
+        return;
+    }
+
+    const usuarioExistente =
+        usuarios.find(
+            usuario =>
+                usuario.email === email
+        );
+
+    if(usuarioExistente){
+
+        alert(
+            "Este email já está cadastrado."
+        );
+
+        return;
+    }
+
+    usuarios.push({
+
+        id: Date.now(),
+
+        nome,
+        email,
+        senha
+
+    });
+
+    localStorage.setItem(
+        "usuarios",
+        JSON.stringify(usuarios)
+    );
+
+    alert(
+        "Conta criada com sucesso!"
+    );
+
+    voltarLogin();
 
 }
