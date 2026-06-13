@@ -459,7 +459,8 @@ function mostrarAtendimentos() {
 
                 <td>${atendimento.motivo}</td>
 
-                <td>${atendimento.status}</td>
+                <td class="status-atendimento">
+                ${atendimento.status} </td>
 
                 <td>
 
@@ -503,6 +504,44 @@ function mostrarAtendimentos() {
             Gerenciamento de atendimentos.
 
         </p>
+
+        <div class="card-filtros">
+
+    <div class="campo-busca">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            id="buscaAtendimento"
+            placeholder="Buscar aluno"
+            onkeyup="filtrarAtendimentos()">
+
+    </div>
+
+    <select
+        id="filtroStatus"
+        onchange="filtrarAtendimentos()">
+
+        <option value="Todos">
+            Todos
+        </option>
+
+        <option value="Agendado">
+            Agendado
+        </option>
+
+        <option value="Realizado">
+            Realizado
+        </option>
+
+        <option value="Cancelado">
+            Cancelado
+        </option>
+
+    </select>
+
+</div>
 
         <div class="grade-acoes">
 
@@ -1570,6 +1609,64 @@ function filtrarMatriculas() {
             linha.textContent
                 .toLowerCase()
                 .includes(texto)
+        ){
+            linha.style.display = "";
+        }
+        else{
+            linha.style.display = "none";
+        }
+
+    });
+
+}
+
+function filtrarAtendimentos() {
+
+    const texto =
+        document
+            .getElementById("buscaAtendimento")
+            .value
+            .toLowerCase();
+
+    const statusSelecionado =
+        document
+            .getElementById("filtroStatus")
+            .value;
+
+    const linhas =
+        document.querySelectorAll(
+            "tbody tr"
+        );
+
+    linhas.forEach((linha) => {
+
+        const conteudo =
+            linha.textContent.toLowerCase();
+
+        const statusCelula =
+            linha.querySelector(
+                ".status-atendimento"
+            );
+
+        if(!statusCelula){
+            return;
+        }
+
+        const status =
+            statusCelula.textContent.trim();
+
+        const passaBusca =
+            conteudo.includes(texto);
+
+        const passaStatus =
+            statusSelecionado === "Todos"
+            ||
+            status === statusSelecionado;
+
+        if(
+            passaBusca
+            &&
+            passaStatus
         ){
             linha.style.display = "";
         }
