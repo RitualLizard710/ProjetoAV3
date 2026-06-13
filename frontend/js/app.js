@@ -97,15 +97,23 @@ function mostrarAlunos() {
 
                     <div class="acoes-tabela">
 
-                        <button
-                            class="botao-icone excluir"
-                            onclick="excluirAluno(${indice})">
+    <button
+        class="botao-icone editar"
+        onclick="editarAluno(${indice})">
 
-                            <i class="fa-solid fa-trash"></i>
+        <i class="fa-solid fa-pen"></i>
 
-                        </button>
+    </button>
 
-                    </div>
+    <button
+        class="botao-icone excluir"
+        onclick="excluirAluno(${indice})">
+
+        <i class="fa-solid fa-trash"></i>
+
+    </button>
+
+</div>
 
                 </td>
 
@@ -736,6 +744,9 @@ function salvarAluno() {
     }
 
     alunos.push({
+
+        id: Date.now(),
+        
         nome,
         email,
         telefone,
@@ -892,6 +903,8 @@ function salvarCurso() {
 
     cursos.push({
 
+        id: Date.now(),
+        
         nome,
         nivel,
         vagasTotais: vagas,
@@ -1072,6 +1085,8 @@ function salvarMatricula() {
     curso.vagasOcupadas++;
 
     matriculas.push({
+
+        id: Date.now(),
 
         aluno,
         curso: cursoNome,
@@ -1277,6 +1292,8 @@ function salvarAtendimento() {
 
     atendimentos.push({
 
+        id: Date.now(),
+        
         aluno,
         data,
         horario,
@@ -1675,5 +1692,138 @@ function filtrarAtendimentos() {
         }
 
     });
+
+}
+
+function editarAluno(indice) {
+
+    const aluno = alunos[indice];
+
+    document.getElementById("conteudo").innerHTML = `
+
+        <h1>Editar Aluno</h1>
+
+        <p class="subtitulo">
+            Atualize os dados do aluno.
+        </p>
+
+        <div class="card-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>Nome Completo *</label>
+
+                    <input
+                        type="text"
+                        id="nomeAluno"
+                        value="${aluno.nome}">
+
+                </div>
+
+                <div>
+
+                    <label>Email *</label>
+
+                    <input
+                        type="email"
+                        id="emailAluno"
+                        value="${aluno.email}">
+
+                </div>
+
+                <div>
+
+                    <label>Telefone</label>
+
+                    <input
+                        type="text"
+                        id="telefoneAluno"
+                        value="${aluno.telefone}">
+
+                </div>
+
+                <div>
+
+                    <label>Nível</label>
+
+                    <select id="nivelAluno">
+
+                        <option ${aluno.nivel === "Básico" ? "selected" : ""}>
+                            Básico
+                        </option>
+
+                        <option ${aluno.nivel === "Intermediário" ? "selected" : ""}>
+                            Intermediário
+                        </option>
+
+                        <option ${aluno.nivel === "Avançado" ? "selected" : ""}>
+                            Avançado
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="linha-inteira">
+
+                    <label>Observações</label>
+
+                    <textarea
+                        id="observacoesAluno">${aluno.observacoes}</textarea>
+
+                </div>
+
+            </div>
+
+            <div class="acoes-formulario">
+
+                <button
+                    class="botao-cinza"
+                    onclick="mostrarAlunos()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="botao-azul"
+                    onclick="salvarEdicaoAluno(${indice})">
+
+                    Salvar Alterações
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+function salvarEdicaoAluno(indice) {
+
+    alunos[indice].nome =
+        document.getElementById("nomeAluno").value;
+
+    alunos[indice].email =
+        document.getElementById("emailAluno").value;
+
+    alunos[indice].telefone =
+        document.getElementById("telefoneAluno").value;
+
+    alunos[indice].nivel =
+        document.getElementById("nivelAluno").value;
+
+    alunos[indice].observacoes =
+        document.getElementById("observacoesAluno").value;
+
+    localStorage.setItem(
+        "alunos",
+        JSON.stringify(alunos)
+    );
+
+    mostrarAlunos();
 
 }
