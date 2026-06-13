@@ -234,15 +234,27 @@ function mostrarCursos() {
 
                 <td>
 
-                    <button
-                        class="botao-icone excluir"
-                        onclick="excluirCurso(${indice})">
+    <div class="acoes-tabela">
 
-                        <i class="fa-solid fa-trash"></i>
+        <button
+            class="botao-icone editar"
+            onclick="editarCurso(${indice})">
 
-                    </button>
+            <i class="fa-solid fa-pen"></i>
 
-                </td>
+        </button>
+
+        <button
+            class="botao-icone excluir"
+            onclick="excluirCurso(${indice})">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+    </div>
+
+</td>
 
             </tr>
         `;
@@ -1825,5 +1837,152 @@ function salvarEdicaoAluno(indice) {
     );
 
     mostrarAlunos();
+
+}
+
+function editarCurso(indice) {
+
+    const curso = cursos[indice];
+
+    document.getElementById("conteudo").innerHTML = `
+
+        <h1>Editar Curso</h1>
+
+        <p class="subtitulo">
+            Atualize os dados do curso.
+        </p>
+
+        <div class="card-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>Nome do Curso *</label>
+
+                    <input
+                        type="text"
+                        id="nomeCurso"
+                        value="${curso.nome}">
+
+                </div>
+
+                <div>
+
+                    <label>Nível *</label>
+
+                    <select id="nivelCurso">
+
+                        <option ${curso.nivel === "Básico" ? "selected" : ""}>
+                            Básico
+                        </option>
+
+                        <option ${curso.nivel === "Intermediário" ? "selected" : ""}>
+                            Intermediário
+                        </option>
+
+                        <option ${curso.nivel === "Avançado" ? "selected" : ""}>
+                            Avançado
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Quantidade de vagas *</label>
+
+                    <input
+                        type="number"
+                        id="vagasCurso"
+                        value="${curso.vagasTotais}">
+
+                </div>
+
+                <div>
+
+                    <label>Carga Horária</label>
+
+                    <input
+                        type="text"
+                        id="cargaCurso"
+                        value="${curso.carga}">
+
+                </div>
+
+                <div class="linha-inteira">
+
+                    <label>Descrição</label>
+
+                    <textarea
+                        id="descricaoCurso">${curso.descricao}</textarea>
+
+                </div>
+
+            </div>
+
+            <div class="acoes-formulario">
+
+                <button
+                    class="botao-cinza"
+                    onclick="mostrarCursos()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="botao-azul"
+                    onclick="salvarEdicaoCurso(${indice})">
+
+                    Salvar Alterações
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+function salvarEdicaoCurso(indice) {
+
+    const vagas =
+        parseInt(
+            document.getElementById("vagasCurso").value
+        );
+
+    if(vagas < cursos[indice].vagasOcupadas){
+
+        alert(
+            "As vagas totais não podem ser menores que as vagas ocupadas."
+        );
+
+        return;
+    }
+
+    cursos[indice].nome =
+        document.getElementById("nomeCurso").value;
+
+    cursos[indice].nivel =
+        document.getElementById("nivelCurso").value;
+
+    cursos[indice].vagasTotais =
+        vagas;
+
+    cursos[indice].carga =
+        document.getElementById("cargaCurso").value;
+
+    cursos[indice].descricao =
+        document.getElementById("descricaoCurso").value;
+
+    localStorage.setItem(
+        "cursos",
+        JSON.stringify(cursos)
+    );
+
+    mostrarCursos();
 
 }
