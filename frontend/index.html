@@ -125,32 +125,50 @@
 
         <aside class="menu-lateral">
 
-<button class="item-menu ativo" onclick="mostrarInicio()">
+<button
+    id="menuInicio"
+    class="item-menu ativo"
+    onclick="ativarMenu('menuInicio'); mostrarInicio()">
     <i class="fa-solid fa-house"></i>
     <span>Início</span>
 </button>
 
-<button class="item-menu" onclick="mostrarAlunos()">
+<button
+    id="menuAlunos"
+    class="item-menu"
+    onclick="ativarMenu('menuAlunos'); mostrarAlunos()">
     <i class="fa-solid fa-user-graduate"></i>
     <span>Alunos</span>
 </button>
 
-<button class="item-menu" onclick="mostrarCursos()">
+<button
+    id="menuCursos"
+    class="item-menu"
+    onclick="ativarMenu('menuCursos'); mostrarCursos()">
     <i class="fa-solid fa-book"></i>
     <span>Cursos</span>
 </button>
 
-<button class="item-menu" onclick="mostrarMatriculas()">
+<button
+    id="menuMatriculas"
+    class="item-menu"
+    onclick="ativarMenu('menuMatriculas'); mostrarMatriculas()">
     <i class="fa-solid fa-clipboard-list"></i>
     <span>Matrículas</span>
 </button>
 
-<button class="item-menu" onclick="mostrarAtendimentos()">
+<button
+    id="menuAtendimentos"
+    class="item-menu"
+    onclick="ativarMenu('menuAtendimentos'); mostrarAtendimentos()">
     <i class="fa-solid fa-calendar-days"></i>
     <span>Atendimentos</span>
 </button>
 
-<button class="item-menu" onclick="mostrarPerfil()">
+<button
+    id="menuPerfil"
+    class="item-menu"
+    onclick="ativarMenu('menuPerfil'); mostrarPerfil()">
     <i class="fa-solid fa-user"></i>
     <span>Perfil</span>
 </button>
