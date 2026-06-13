@@ -383,6 +383,22 @@ function mostrarMatriculas() {
 
         </p>
 
+        <div class="card-filtros">
+
+    <div class="campo-busca">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            id="buscaMatricula"
+            placeholder="Buscar aluno"
+            onkeyup="filtrarMatriculas()">
+
+    </div>
+
+</div>
+
         <div class="grade-acoes">
 
             <button
@@ -1510,6 +1526,36 @@ function filtrarCursos() {
     const texto =
         document
             .getElementById("buscaCurso")
+            .value
+            .toLowerCase();
+
+    const linhas =
+        document.querySelectorAll(
+            "tbody tr"
+        );
+
+    linhas.forEach((linha) => {
+
+        if(
+            linha.textContent
+                .toLowerCase()
+                .includes(texto)
+        ){
+            linha.style.display = "";
+        }
+        else{
+            linha.style.display = "none";
+        }
+
+    });
+
+}
+
+function filtrarMatriculas() {
+
+    const texto =
+        document
+            .getElementById("buscaMatricula")
             .value
             .toLowerCase();
 
