@@ -363,6 +363,16 @@ function mostrarMatriculas() {
 
     <td>
 
+    <div class="acoes-tabela">
+
+        <button
+            class="botao-icone editar"
+            onclick="editarMatricula(${indice})">
+
+            <i class="fa-solid fa-pen"></i>
+
+        </button>
+
         <button
             class="botao-icone excluir"
             onclick="excluirMatricula(${indice})">
@@ -371,7 +381,9 @@ function mostrarMatriculas() {
 
         </button>
 
-    </td>
+    </div>
+
+</td>
 
 </tr>
         `;
@@ -1984,5 +1996,180 @@ function salvarEdicaoCurso(indice) {
     );
 
     mostrarCursos();
+
+}
+
+function editarMatricula(indice) {
+
+    const matricula =
+        matriculas[indice];
+
+    let opcoesAlunos = "";
+
+    alunos.forEach((aluno) => {
+
+        opcoesAlunos += `
+            <option
+                ${aluno.nome === matricula.aluno ? "selected" : ""}>
+
+                ${aluno.nome}
+
+            </option>
+        `;
+    });
+
+    let opcoesCursos = "";
+
+    cursos.forEach((curso) => {
+
+        opcoesCursos += `
+            <option
+                ${curso.nome === matricula.curso ? "selected" : ""}>
+
+                ${curso.nome}
+
+            </option>
+        `;
+    });
+
+    document.getElementById("conteudo").innerHTML = `
+
+        <h1>Editar Matrícula</h1>
+
+        <p class="subtitulo">
+
+            Atualize os dados da matrícula.
+
+        </p>
+
+        <div class="card-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>Aluno</label>
+
+                    <select id="alunoMatricula">
+
+                        ${opcoesAlunos}
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Curso</label>
+
+                    <select id="cursoMatricula">
+
+                        ${opcoesCursos}
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Data</label>
+
+                    <input
+                        type="date"
+                        id="dataMatricula"
+                        value="${matricula.data}">
+
+                </div>
+
+            </div>
+
+            <div class="acoes-formulario">
+
+                <button
+                    class="botao-cinza"
+                    onclick="mostrarMatriculas()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="botao-azul"
+                    onclick="salvarEdicaoMatricula(${indice})">
+
+                    Salvar Alterações
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+function salvarEdicaoMatricula(indice) {
+
+    const matricula =
+        matriculas[indice];
+
+    const cursoAntigo =
+        cursos.find(
+            c => c.nome === matricula.curso
+        );
+
+    const novoCursoNome =
+        document.getElementById(
+            "cursoMatricula"
+        ).value;
+
+    const novoCurso =
+        cursos.find(
+            c => c.nome === novoCursoNome
+        );
+
+    if(cursoAntigo.nome !== novoCurso.nome){
+
+        if(
+            novoCurso.vagasOcupadas >=
+            novoCurso.vagasTotais
+        ){
+
+            alert(
+                "O novo curso está lotado."
+            );
+
+            return;
+        }
+
+        cursoAntigo.vagasOcupadas--;
+
+        novoCurso.vagasOcupadas++;
+    }
+
+    matricula.aluno =
+        document.getElementById(
+            "alunoMatricula"
+        ).value;
+
+    matricula.curso =
+        novoCursoNome;
+
+    matricula.data =
+        document.getElementById(
+            "dataMatricula"
+        ).value;
+
+    localStorage.setItem(
+        "matriculas",
+        JSON.stringify(matriculas)
+    );
+
+    localStorage.setItem(
+        "cursos",
+        JSON.stringify(cursos)
+    );
+
+    mostrarMatriculas();
 
 }
