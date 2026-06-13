@@ -8,6 +8,11 @@ let cursos =
         localStorage.getItem("cursos")
     ) || [];
 
+let matriculas =
+    JSON.parse(
+        localStorage.getItem("matriculas")
+    ) || [];
+
 function entrar() {
 
     document
@@ -308,12 +313,97 @@ function mostrarCursos() {
 
 function mostrarMatriculas() {
 
+    let linhas = "";
+
+    matriculas.forEach((matricula) => {
+
+        linhas += `
+
+            <tr>
+
+                <td>${matricula.aluno}</td>
+
+                <td>${matricula.curso}</td>
+
+                <td>${matricula.data}</td>
+
+                <td>
+
+                    <span class="etiqueta disponivel">
+                        Ativa
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `;
+    });
+
+    if(matriculas.length === 0){
+
+        linhas = `
+            <tr>
+
+                <td colspan="4"
+                    class="estado-vazio">
+
+                    Nenhuma matrícula cadastrada.
+
+                </td>
+
+            </tr>
+        `;
+    }
+
     document.getElementById("conteudo").innerHTML = `
+
         <h1>Matrículas</h1>
 
         <p class="subtitulo">
+
             Gerenciamento de matrículas.
+
         </p>
+
+        <div class="grade-acoes">
+
+            <button
+                class="botao-azul"
+                onclick="abrirMatricula()">
+
+                Nova Matrícula
+
+            </button>
+
+        </div>
+
+        <div class="card-tabela">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Aluno</th>
+                        <th>Curso</th>
+                        <th>Data</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${linhas}
+
+                </tbody>
+
+            </table>
+
+        </div>
     `;
 }
 
@@ -664,4 +754,172 @@ function excluirCurso(indice) {
 
         mostrarCursos();
     }
+}
+
+function abrirMatricula() {
+
+    if(alunos.length === 0){
+
+        alert(
+            "Cadastre pelo menos um aluno."
+        );
+
+        return;
+    }
+
+    if(cursos.length === 0){
+
+        alert(
+            "Cadastre pelo menos um curso."
+        );
+
+        return;
+    }
+
+    let opcoesAlunos = "";
+
+    alunos.forEach((aluno) => {
+
+        opcoesAlunos += `
+            <option>
+                ${aluno.nome}
+            </option>
+        `;
+    });
+
+    let opcoesCursos = "";
+
+    cursos.forEach((curso) => {
+
+        opcoesCursos += `
+            <option>
+                ${curso.nome}
+            </option>
+        `;
+    });
+
+    document.getElementById("conteudo").innerHTML = `
+
+        <h1>Nova Matrícula</h1>
+
+        <p class="subtitulo">
+
+            Vincular aluno a um curso.
+
+        </p>
+
+        <div class="card-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>Aluno *</label>
+
+                    <select id="alunoMatricula">
+
+                        ${opcoesAlunos}
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Curso *</label>
+
+                    <select id="cursoMatricula">
+
+                        ${opcoesCursos}
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Data *</label>
+
+                    <input
+                        type="date"
+                        id="dataMatricula">
+
+                </div>
+
+            </div>
+
+            <div class="acoes-formulario">
+
+                <button
+                    class="botao-cinza"
+                    onclick="mostrarMatriculas()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="botao-azul"
+                    onclick="salvarMatricula()">
+
+                    Salvar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+function salvarMatricula() {
+
+    const aluno =
+        document.getElementById("alunoMatricula").value;
+
+    const cursoNome =
+        document.getElementById("cursoMatricula").value;
+
+    const data =
+        document.getElementById("dataMatricula").value;
+
+    const curso =
+        cursos.find(
+            c => c.nome === cursoNome
+        );
+
+    if(
+        curso.vagasOcupadas >=
+        curso.vagasTotais
+    ){
+
+        alert(
+            "Curso lotado."
+        );
+
+        return;
+    }
+
+    curso.vagasOcupadas++;
+
+    matriculas.push({
+
+        aluno,
+        curso: cursoNome,
+        data
+
+    });
+
+    localStorage.setItem(
+        "cursos",
+        JSON.stringify(cursos)
+    );
+
+    localStorage.setItem(
+        "matriculas",
+        JSON.stringify(matriculas)
+    );
+
+    mostrarMatriculas();
 }
