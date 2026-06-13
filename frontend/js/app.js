@@ -1,3 +1,5 @@
+let alunos = [];
+
 function entrar() {
 
     document
@@ -47,6 +49,69 @@ function mostrarInicio() {
 
 function mostrarAlunos() {
 
+    let linhas = "";
+
+    alunos.forEach((aluno, indice) => {
+
+        let classeNivel = "basico";
+
+        if(aluno.nivel === "Intermediário") {
+            classeNivel = "intermediario";
+        }
+
+        if(aluno.nivel === "Avançado") {
+            classeNivel = "avancado";
+        }
+
+        linhas += `
+            <tr>
+
+                <td>${aluno.nome}</td>
+
+                <td>${aluno.email}</td>
+
+                <td>${aluno.telefone}</td>
+
+                <td>
+                    <span class="etiqueta ${classeNivel}">
+                        ${aluno.nivel}
+                    </span>
+                </td>
+
+                <td>
+
+                    <div class="acoes-tabela">
+
+                        <button
+                            class="botao-icone excluir"
+                            onclick="excluirAluno(${indice})">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+        `;
+    });
+
+    if(alunos.length === 0){
+
+        linhas = `
+            <tr>
+                <td colspan="5"
+                    class="estado-vazio">
+
+                    Nenhum aluno cadastrado.
+
+                </td>
+            </tr>
+        `;
+    }
+
     document.getElementById("conteudo").innerHTML = `
 
         <h1>Alunos</h1>
@@ -58,11 +123,13 @@ function mostrarAlunos() {
         <div class="card-filtros">
 
             <div class="campo-busca">
+
                 <i class="fa-solid fa-magnifying-glass"></i>
 
                 <input
                     type="text"
                     placeholder="Buscar aluno">
+
             </div>
 
             <div></div>
@@ -95,70 +162,13 @@ function mostrarAlunos() {
 
                 <tbody>
 
-                    <tr>
-                        <td>João Silva</td>
-                        <td>joao@email.com</td>
-                        <td>(71)99999-1111</td>
-
-                        <td>
-                            <span class="etiqueta basico">
-                                Básico
-                            </span>
-                        </td>
-
-                        <td>
-
-                            <div class="acoes-tabela">
-
-                                <button class="botao-icone editar">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-
-                                <button class="botao-icone excluir">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-                        <td>Maria Souza</td>
-                        <td>maria@email.com</td>
-                        <td>(71)99999-2222</td>
-
-                        <td>
-                            <span class="etiqueta intermediario">
-                                Intermediário
-                            </span>
-                        </td>
-
-                        <td>
-
-                            <div class="acoes-tabela">
-
-                                <button class="botao-icone editar">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-
-                                <button class="botao-icone excluir">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
+                    ${linhas}
 
                 </tbody>
 
             </table>
 
         </div>
-
     `;
 }
 
@@ -328,19 +338,42 @@ function salvarAluno() {
     const email =
         document.getElementById("emailAluno").value;
 
+    const telefone =
+        document.getElementById("telefoneAluno").value;
+
+    const nivel =
+        document.getElementById("nivelAluno").value;
+
+    const observacoes =
+        document.getElementById("observacoesAluno").value;
+
     if(nome === "" || email === "") {
 
-        alert(
-            "Nome e Email são obrigatórios."
-        );
+        alert("Nome e Email são obrigatórios.");
 
         return;
     }
 
-    alert(
-        "Aluno salvo com sucesso!"
-    );
+    alunos.push({
+        nome,
+        email,
+        telefone,
+        nivel,
+        observacoes
+    });
 
     mostrarAlunos();
+
+}
+
+function excluirAluno(indice) {
+
+    if(confirm("Deseja excluir este aluno?")) {
+
+        alunos.splice(indice, 1);
+
+        mostrarAlunos();
+
+    }
 
 }
