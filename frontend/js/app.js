@@ -1,5 +1,11 @@
 let alunos = [];
 
+let indiceEdicao = -1;
+
+let buscaAluno = "";
+
+let filtroNivel = "Todos";
+
 function entrar() {
 
     document
@@ -49,9 +55,22 @@ function mostrarInicio() {
 
 function mostrarAlunos() {
 
-    let linhas = "";
+    let alunosFiltrados = alunos.filter(aluno => {
 
-    alunos.forEach((aluno, indice) => {
+    const nomeValido =
+        aluno.nome
+        .toLowerCase()
+        .includes(buscaAluno.toLowerCase());
+
+    const nivelValido =
+        filtroNivel === "Todos" ||
+        aluno.nivel === filtroNivel;
+
+    return nomeValido && nivelValido;
+
+});
+
+    alunosFiltrados.forEach((aluno, indice) => {
 
         let classeNivel = "basico";
 
@@ -82,15 +101,23 @@ function mostrarAlunos() {
 
                     <div class="acoes-tabela">
 
-                        <button
-                            class="botao-icone excluir"
-                            onclick="excluirAluno(${indice})">
+    <button
+        class="botao-icone editar"
+        onclick="editarAluno(${indice})">
 
-                            <i class="fa-solid fa-trash"></i>
+        <i class="fa-solid fa-pen"></i>
 
-                        </button>
+    </button>
 
-                    </div>
+    <button
+        class="botao-icone excluir"
+        onclick="excluirAluno(${indice})">
+
+        <i class="fa-solid fa-trash"></i>
+
+    </button>
+
+</div>
 
                 </td>
 
@@ -127,12 +154,32 @@ function mostrarAlunos() {
                 <i class="fa-solid fa-magnifying-glass"></i>
 
                 <input
-                    type="text"
-                    placeholder="Buscar aluno">
+    type="text"
+    placeholder="Buscar aluno"
+    value="${buscaAluno}"
+    oninput="pesquisarAluno(this.value)">
 
             </div>
 
-            <div></div>
+            <select onchange="filtrarNivel(this.value)">
+
+    <option ${filtroNivel === "Todos" ? "selected" : ""}>
+        Todos
+    </option>
+
+    <option ${filtroNivel === "Básico" ? "selected" : ""}>
+        Básico
+    </option>
+
+    <option ${filtroNivel === "Intermediário" ? "selected" : ""}>
+        Intermediário
+    </option>
+
+    <option ${filtroNivel === "Avançado" ? "selected" : ""}>
+        Avançado
+    </option>
+
+</select>
 
             <button
                 class="botao-azul"
@@ -354,6 +401,21 @@ function salvarAluno() {
         return;
     }
 
+    if(indiceEdicao >= 0){
+
+    alunos[indiceEdicao] = {
+        nome,
+        email,
+        telefone,
+        nivel,
+        observacoes
+    };
+
+    indiceEdicao = -1;
+
+}
+else{
+
     alunos.push({
         nome,
         email,
@@ -361,6 +423,8 @@ function salvarAluno() {
         nivel,
         observacoes
     });
+
+}
 
     mostrarAlunos();
 
@@ -375,5 +439,50 @@ function excluirAluno(indice) {
         mostrarAlunos();
 
     }
+
+}
+
+function pesquisarAluno(valor) {
+
+    buscaAluno = valor;
+
+    mostrarAlunos();
+
+}
+
+function filtrarNivel(valor) {
+
+    filtroNivel = valor;
+
+    mostrarAlunos();
+
+}
+
+function editarAluno(indice) {
+
+    indiceEdicao = indice;
+
+    const aluno = alunos[indice];
+
+    abrirCadastroAluno();
+
+    setTimeout(() => {
+
+        document.getElementById("nomeAluno").value =
+            aluno.nome;
+
+        document.getElementById("emailAluno").value =
+            aluno.email;
+
+        document.getElementById("telefoneAluno").value =
+            aluno.telefone;
+
+        document.getElementById("nivelAluno").value =
+            aluno.nivel;
+
+        document.getElementById("observacoesAluno").value =
+            aluno.observacoes;
+
+    }, 50);
 
 }
