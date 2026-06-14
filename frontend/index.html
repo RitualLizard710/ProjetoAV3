@@ -115,15 +115,21 @@
                 Reforço Escolar
             </div>
 
-            <button class="botao-perfil-topo">
+            <button
+    class="botao-perfil-topo"
+    onclick="mostrarPerfil()">
 
-                <div class="avatar-topo">
-                    <i class="fa-solid fa-user"></i>
-                </div>
+    <div class="avatar-topo">
+        <i class="fa-solid fa-user"></i>
+    </div>
 
-                <span>Administrador</span>
+    <span id="nomeUsuarioTopo">
 
-            </button>
+        Administrador
+
+    </span>
+
+</button>
 
         </header>
 
@@ -167,14 +173,6 @@
     onclick="ativarMenu('menuAtendimentos'); mostrarAtendimentos()">
     <i class="fa-solid fa-calendar-days"></i>
     <span>Atendimentos</span>
-</button>
-
-<button
-    id="menuPerfil"
-    class="item-menu"
-    onclick="ativarMenu('menuPerfil'); mostrarPerfil()">
-    <i class="fa-solid fa-user"></i>
-    <span>Perfil</span>
 </button>
 
         </aside>
