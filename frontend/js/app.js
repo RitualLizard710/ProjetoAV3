@@ -1046,14 +1046,13 @@ function abrirMatricula() {
 
     let opcoesAlunos = "";
 
-    alunos.forEach((aluno) => {
+alunos.forEach((aluno) => {
 
-        opcoesAlunos += `
-            <option>
-                ${aluno.nome}
-            </option>
-        `;
-    });
+    opcoesAlunos += `
+        <option value="${aluno.nome}">
+    `;
+
+});
 
     let opcoesCursos = "";
 
@@ -1084,11 +1083,15 @@ function abrirMatricula() {
 
                     <label>Aluno *</label>
 
-                    <select id="alunoMatricula">
+                    <input
+                        list="listaAlunos"
+                        id="alunoMatricula">
+
+                    <datalist id="listaAlunos">
 
                         ${opcoesAlunos}
 
-                    </select>
+                    </datalist>
 
                 </div>
 
@@ -1245,14 +1248,13 @@ function abrirAtendimento() {
 
     let opcoes = "";
 
-    alunos.forEach((aluno) => {
+alunos.forEach((aluno) => {
 
-        opcoes += `
-            <option>
-                ${aluno.nome}
-            </option>
-        `;
-    });
+    opcoes += `
+        <option value="${aluno.nome}">
+    `;
+
+});
 
     document.getElementById("conteudo").innerHTML = `
 
@@ -1272,11 +1274,15 @@ function abrirAtendimento() {
 
                     <label>Aluno *</label>
 
-                    <select id="alunoAtendimento">
+                    <input
+                        list="listaAlunosAtendimento"
+                        id="alunoAtendimento">
+
+                    <datalist id="listaAlunosAtendimento">
 
                         ${opcoes}
 
-                    </select>
+                    </datalist>
 
                 </div>
 
@@ -2143,11 +2149,16 @@ function editarMatricula(indice) {
 
                     <label>Aluno</label>
 
-                    <select id="alunoMatricula">
+                    <input
+                        list="listaAlunosEditar"
+                        id="alunoMatricula"
+                        value="${matricula.aluno}">
+
+                    <datalist id="listaAlunosEditar">
 
                         ${opcoesAlunos}
 
-                    </select>
+                    </datalist>
 
                 </div>
 
@@ -2305,11 +2316,16 @@ function editarAtendimento(indice) {
 
                     <label>Aluno</label>
 
-                    <select id="alunoAtendimento">
+                    <input
+                        list="listaAlunosAtendimentoEditar"
+                        id="alunoAtendimento"
+                        value="${atendimento.aluno}">
+
+                    <datalist id="listaAlunosAtendimentoEditar">
 
                         ${opcoesAlunos}
 
-                    </select>
+                    </datalist>
 
                 </div>
 
