@@ -43,6 +43,10 @@ function entrar() {
                 usuario.senha === senha
         );
 
+    document.getElementById(
+    "nomeUsuarioTopo"
+).textContent = usuario.nome;
+
     if(!usuario){
 
         alert(
