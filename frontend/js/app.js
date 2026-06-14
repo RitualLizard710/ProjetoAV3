@@ -3,6 +3,11 @@ let usuarios =
         localStorage.getItem("usuarios")
     ) || [];
 
+let usuarioLogado =
+    JSON.parse(
+        localStorage.getItem("usuarioLogado")
+    ) || null;
+
 let alunos =
     JSON.parse(
         localStorage.getItem("alunos")
@@ -43,6 +48,13 @@ function entrar() {
                 usuario.senha === senha
         );
 
+    usuarioLogado = usuario;
+
+localStorage.setItem(
+    "usuarioLogado",
+    JSON.stringify(usuario)
+);
+
     if(!usuario){
 
         alert(
@@ -60,6 +72,11 @@ function entrar() {
         .getElementById("aplicacao")
         .classList.remove("oculto");
 
+    document
+        .getElementById("nomeUsuarioTopo")
+        .textContent =
+            usuario.nome;
+    
     carregarDashboard();
 
 }
@@ -2533,5 +2550,232 @@ function registrar() {
     );
 
     voltarLogin();
+
+}
+
+function mostrarPerfil() {
+
+    const perfil =
+        JSON.parse(
+            localStorage.getItem(
+                "perfilAdministrador"
+            )
+        ) || {
+
+            cargo: "",
+            telefone: ""
+
+        };
+
+    document.getElementById(
+        "conteudo"
+    ).innerHTML = `
+
+        <h1>Perfil</h1>
+
+        <div class="painel">
+
+            <h2>
+
+                ${usuarioLogado.nome}
+
+            </h2>
+
+            <p>
+
+                Responsável pelo sistema
+
+            </p>
+
+            <p>
+
+                ${usuarioLogado.email}
+
+            </p>
+
+            <p>
+
+                🛡️ Acesso administrativo
+
+            </p>
+
+            <p>
+
+                Último acesso: hoje
+
+            </p>
+
+            <button
+                class="botao-vermelho"
+                onclick="sairConta()">
+
+                Sair da Conta
+
+            </button>
+
+        </div>
+
+        <div class="card-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>
+                        Nome do Administrador
+                    </label>
+
+                    <input
+                        value="${usuarioLogado.nome}"
+                        disabled>
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Email de acesso
+                    </label>
+
+                    <input
+                        value="${usuarioLogado.email}"
+                        disabled>
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Cargo/Função
+                    </label>
+
+                    <input
+                        id="cargoPerfil"
+                        value="${perfil.cargo}">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Telefone
+                    </label>
+
+                    <input
+                        id="telefonePerfil"
+                        value="${perfil.telefone}">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="grade-cards">
+
+            <div class="card-info">
+
+                <div class="numero-card">
+
+                    ${alunos.length}
+
+                </div>
+
+                <div>
+
+                    Alunos
+
+                </div>
+
+            </div>
+
+            <div class="card-info">
+
+                <div class="numero-card">
+
+                    ${cursos.length}
+
+                </div>
+
+                <div>
+
+                    Cursos
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="acoes-formulario">
+
+            <button
+                class="botao-cinza"
+                onclick="carregarDashboard()">
+
+                Cancelar
+
+            </button>
+
+            <button
+                class="botao-azul"
+                onclick="salvarPerfil()">
+
+                Salvar Perfil
+
+            </button>
+
+        </div>
+
+    `;
+}
+
+function salvarPerfil() {
+
+    localStorage.setItem(
+
+        "perfilAdministrador",
+
+        JSON.stringify({
+
+            cargo:
+
+                document
+                .getElementById(
+                    "cargoPerfil"
+                ).value,
+
+            telefone:
+
+                document
+                .getElementById(
+                    "telefonePerfil"
+                ).value
+
+        })
+
+    );
+
+    alert(
+        "Perfil salvo com sucesso!"
+    );
+
+}
+
+function sairConta() {
+
+    localStorage.removeItem(
+        "usuarioLogado"
+    );
+
+    usuarioLogado = null;
+
+    document
+        .getElementById("aplicacao")
+        .classList.add("oculto");
+
+    document
+        .getElementById("telaLogin")
+        .classList.remove("oculto");
 
 }
