@@ -814,8 +814,36 @@ function salvarAluno() {
     const email =
         document.getElementById("emailAluno").value;
 
+    const regexEmail =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!regexEmail.test(email)){
+
+    alert(
+        "Digite um email válido."
+    );
+
+    return;
+}
+
     const telefone =
         document.getElementById("telefoneAluno").value;
+
+    const regexTelefone =
+    /^\d{2}\s\d{9}$/;
+
+if(
+    telefone !== ""
+    &&
+    !regexTelefone.test(telefone)
+){
+
+    alert(
+        "Telefone deve estar no formato: 71 999999999"
+    );
+
+    return;
+}
 
     const nivel =
         document.getElementById("nivelAluno").value;
@@ -972,6 +1000,19 @@ function salvarCurso() {
         parseInt(
             document.getElementById("vagasCurso").value
         );
+
+    if(
+    isNaN(vagas)
+    ||
+    vagas <= 0
+){
+
+    alert(
+        "A quantidade de vagas deve ser um número inteiro positivo."
+    );
+
+    return;
+}
 
     const carga =
         document.getElementById("cargaCurso").value;
@@ -2064,6 +2105,19 @@ function salvarEdicaoCurso(indice) {
         parseInt(
             document.getElementById("vagasCurso").value
         );
+
+    if(
+    isNaN(vagas)
+    ||
+    vagas <= 0
+){
+
+    alert(
+        "A quantidade de vagas deve ser maior que zero."
+    );
+
+    return;
+}
 
     if(vagas < cursos[indice].vagasOcupadas){
 
