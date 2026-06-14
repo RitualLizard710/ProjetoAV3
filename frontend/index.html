@@ -5,18 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro de Educação e Reforço Estudantil da Bahia</title>
-
     <link rel="stylesheet" href="css/style.css">
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- LOGIN -->
+    <!-- ================================================== -->
+    <!-- TELA: LOGIN                                         -->
+    <!-- ================================================== -->
     <section id="telaLogin" class="tela-login">
-
         <div class="card-login">
 
             <div class="topo-login">
@@ -25,12 +23,8 @@
             </div>
 
             <div class="conteudo-login">
-
                 <h2>Entrar</h2>
-
-                <p>
-                    Faça login para acessar o sistema.
-                </p>
+                <p>Faça login para acessar o sistema.</p>
 
                 <div class="campo-login">
                     <label>Email</label>
@@ -42,25 +36,18 @@
                     <input type="password" id="senhaLogin">
                 </div>
 
-                <button class="botao-azul" onclick="entrar()">
-                    Entrar
-                </button>
-
+                <button class="botao-azul" onclick="entrar()">Entrar</button>
                 <br><br>
-
-                <button class="botao-contorno" onclick="abrirRegistro()">
-                    Criar Conta
-                </button>
-
+                <button class="botao-contorno" onclick="abrirRegistro()">Criar Conta</button>
             </div>
 
         </div>
-
     </section>
 
-    <!-- REGISTRO -->
+    <!-- ================================================== -->
+    <!-- TELA: REGISTRO                                      -->
+    <!-- ================================================== -->
     <section id="telaRegistro" class="tela-login oculto">
-
         <div class="card-login">
 
             <div class="topo-login">
@@ -69,7 +56,6 @@
             </div>
 
             <div class="conteudo-login">
-
                 <div class="campo-login">
                     <label>Nome</label>
                     <input type="text" id="nomeCadastro">
@@ -85,207 +71,131 @@
                     <input type="password" id="senhaCadastro">
                 </div>
 
-                <button
-                    class="botao-azul"
-                    onclick="registrar()">
-
-                    Registrar
-
-                </button>
-
+                <button class="botao-azul" onclick="registrar()">Registrar</button>
                 <br><br>
-
-                <button class="botao-contorno" onclick="voltarLogin()">
-                    Voltar
-                </button>
-
+                <button class="botao-contorno" onclick="voltarLogin()">Voltar</button>
             </div>
 
         </div>
-
     </section>
 
-    <!-- APLICAÇÃO -->
+    <!-- ================================================== -->
+    <!-- APLICAÇÃO PRINCIPAL                                 -->
+    <!-- ================================================== -->
     <section id="aplicacao" class="aplicacao oculto">
 
+        <!-- Barra superior -->
         <header class="topbar">
-
             <div class="marca">
                 <i class="fa-solid fa-school"></i>
                 Centro de Educação e Reforço Estudantil da Bahia
             </div>
-
             <div class="botao-perfil-topo">
-
-    <div class="avatar-topo">
-
-        <i class="fa-solid fa-user"></i>
-
-    </div>
-
-    <span id="nomeUsuarioTopo">
-
-        Administrador
-
-    </span>
-
-</div>
-
+                <div class="avatar-topo">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <span id="nomeUsuarioTopo">Administrador</span>
+            </div>
         </header>
 
+        <!-- Menu lateral -->
         <aside class="menu-lateral">
+            <button id="menuInicio" class="item-menu ativo"
+                onclick="ativarMenu('menuInicio'); mostrarInicio()">
+                <i class="fa-solid fa-house"></i>
+                <span>Início</span>
+            </button>
 
-<button
-    id="menuInicio"
-    class="item-menu ativo"
-    onclick="ativarMenu('menuInicio'); mostrarInicio()">
-    <i class="fa-solid fa-house"></i>
-    <span>Início</span>
-</button>
+            <button id="menuAlunos" class="item-menu"
+                onclick="ativarMenu('menuAlunos'); mostrarAlunos()">
+                <i class="fa-solid fa-user-graduate"></i>
+                <span>Alunos</span>
+            </button>
 
-<button
-    id="menuAlunos"
-    class="item-menu"
-    onclick="ativarMenu('menuAlunos'); mostrarAlunos()">
-    <i class="fa-solid fa-user-graduate"></i>
-    <span>Alunos</span>
-</button>
+            <button id="menuCursos" class="item-menu"
+                onclick="ativarMenu('menuCursos'); mostrarCursos()">
+                <i class="fa-solid fa-book"></i>
+                <span>Cursos</span>
+            </button>
 
-<button
-    id="menuCursos"
-    class="item-menu"
-    onclick="ativarMenu('menuCursos'); mostrarCursos()">
-    <i class="fa-solid fa-book"></i>
-    <span>Cursos</span>
-</button>
+            <button id="menuMatriculas" class="item-menu"
+                onclick="ativarMenu('menuMatriculas'); mostrarMatriculas()">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Matrículas</span>
+            </button>
 
-<button
-    id="menuMatriculas"
-    class="item-menu"
-    onclick="ativarMenu('menuMatriculas'); mostrarMatriculas()">
-    <i class="fa-solid fa-clipboard-list"></i>
-    <span>Matrículas</span>
-</button>
-
-<button
-    id="menuAtendimentos"
-    class="item-menu"
-    onclick="ativarMenu('menuAtendimentos'); mostrarAtendimentos()">
-    <i class="fa-solid fa-calendar-days"></i>
-    <span>Atendimentos</span>
-</button>
-
+            <button id="menuAtendimentos" class="item-menu"
+                onclick="ativarMenu('menuAtendimentos'); mostrarAtendimentos()">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Atendimentos</span>
+            </button>
         </aside>
 
-    <main class="principal">
+        <!-- Conteúdo principal -->
+        <main class="principal">
+            <div class="container" id="conteudo">
 
-    <div class="container" id="conteudo">
+                <h1>Dashboard</h1>
+                <p class="subtitulo">Visão geral do sistema de reforço escolar.</p>
 
-        <h1>Dashboard</h1>
-
-        <p class="subtitulo">
-            Visão geral do sistema de reforço escolar.
-        </p>
-
-        <div class="grade-cards">
-
-            <div class="card-info">
-                <i class="fa-solid fa-user-graduate fa-2x"></i>
-                <div class="numero-card">25</div>
-                <div class="texto-card">
-                    Total de Alunos
+                <div class="grade-cards">
+                    <div class="card-info">
+                        <i class="fa-solid fa-user-graduate fa-2x"></i>
+                        <div class="numero-card">25</div>
+                        <div class="texto-card">Total de Alunos</div>
+                    </div>
+                    <div class="card-info">
+                        <i class="fa-solid fa-book fa-2x"></i>
+                        <div class="numero-card">8</div>
+                        <div class="texto-card">Total de Cursos</div>
+                    </div>
+                    <div class="card-info">
+                        <i class="fa-solid fa-clipboard-list fa-2x"></i>
+                        <div class="numero-card">18</div>
+                        <div class="texto-card">Matrículas Ativas</div>
+                    </div>
+                    <div class="card-info">
+                        <i class="fa-solid fa-calendar-days fa-2x"></i>
+                        <div class="numero-card">6</div>
+                        <div class="texto-card">Atendimentos Agendados</div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card-info">
-                <i class="fa-solid fa-book fa-2x"></i>
-                <div class="numero-card">8</div>
-                <div class="texto-card">
-                    Total de Cursos
+                <h2 class="titulo-rapido">Ações Rápidas</h2>
+                <div class="grade-acoes">
+                    <button class="botao-azul">Cadastrar Aluno</button>
+                    <button class="botao-azul">Criar Curso</button>
+                    <button class="botao-azul">Nova Matrícula</button>
+                    <button class="botao-azul">Agendar Atendimento</button>
                 </div>
-            </div>
 
-            <div class="card-info">
-                <i class="fa-solid fa-clipboard-list fa-2x"></i>
-                <div class="numero-card">18</div>
-                <div class="texto-card">
-                    Matrículas Ativas
+                <div class="painel">
+                    <div class="cabecalho-painel">Próximos Atendimentos</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aluno</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>João Silva</td>
+                                <td>15/06/2026</td>
+                                <td>14:00</td>
+                            </tr>
+                            <tr>
+                                <td>Maria Souza</td>
+                                <td>16/06/2026</td>
+                                <td>09:30</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
-
-            <div class="card-info">
-                <i class="fa-solid fa-calendar-days fa-2x"></i>
-                <div class="numero-card">6</div>
-                <div class="texto-card">
-                    Atendimentos Agendados
-                </div>
-            </div>
-
-        </div>
-
-        <h2 class="titulo-rapido">
-            Ações Rápidas
-        </h2>
-
-        <div class="grade-acoes">
-
-            <button class="botao-azul">
-                Cadastrar Aluno
-            </button>
-
-            <button class="botao-azul">
-                Criar Curso
-            </button>
-
-            <button class="botao-azul">
-                Nova Matrícula
-            </button>
-
-            <button class="botao-azul">
-                Agendar Atendimento
-            </button>
-
-        </div>
-
-        <div class="painel">
-
-            <div class="cabecalho-painel">
-                Próximos Atendimentos
-            </div>
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Aluno</th>
-                        <th>Data</th>
-                        <th>Horário</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <tr>
-                        <td>João Silva</td>
-                        <td>15/06/2026</td>
-                        <td>14:00</td>
-                    </tr>
-
-                    <tr>
-                        <td>Maria Souza</td>
-                        <td>16/06/2026</td>
-                        <td>09:30</td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</main>
+        </main>
 
     </section>
 
