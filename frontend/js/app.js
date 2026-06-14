@@ -52,6 +52,11 @@ function entrar() {
         return;
     }
 
+    localStorage.setItem(
+    "usuarioLogado",
+    JSON.stringify(usuario)
+);
+
     document
         .getElementById("telaLogin")
         .classList.add("oculto");
@@ -59,6 +64,10 @@ function entrar() {
     document
         .getElementById("aplicacao")
         .classList.remove("oculto");
+    
+    document.getElementById(
+        "nomeUsuarioTopo"
+        ).textContent = usuario.nome;
 
     carregarDashboard();
 
@@ -2587,5 +2596,200 @@ function registrar() {
     );
 
     voltarLogin();
+
+}
+
+function mostrarPerfil() {
+
+    const usuario =
+        JSON.parse(
+            localStorage.getItem(
+                "usuarioLogado"
+            )
+        );
+
+    document.getElementById(
+        "conteudo"
+    ).innerHTML = `
+
+    <h1>Perfil do Administrador</h1>
+
+    <p class="subtitulo">
+        Área do usuário responsável pelo sistema.
+    </p>
+
+    <div class="perfil-container">
+
+        <div class="perfil-card">
+
+            <div class="avatar-perfil">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <h2>${usuario.nome}</h2>
+
+            <p>
+                Responsável pelo sistema
+            </p>
+
+            <hr>
+
+            <p>
+                <i class="fa-solid fa-envelope"></i>
+                ${usuario.email}
+            </p>
+
+            <hr>
+
+            <button
+                class="botao-sair"
+                onclick="sairSistema()">
+
+                Sair da Conta
+
+            </button>
+
+        </div>
+
+        <div class="perfil-formulario">
+
+            <div class="grade-formulario">
+
+                <div>
+
+                    <label>
+                        Nome do administrador
+                    </label>
+
+                    <input
+                        type="text"
+                        value="${usuario.nome}"
+                        disabled>
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Email de acesso
+                    </label>
+
+                    <input
+                        type="email"
+                        value="${usuario.email}"
+                        disabled>
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Cargo/Função
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cargoPerfil"
+                        value="${usuario.cargo || ''}">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Telefone
+                    </label>
+
+                    <input
+                        type="text"
+                        id="telefonePerfil"
+                        value="${usuario.telefone || ''}">
+
+                </div>
+
+            </div>
+
+            <div class="acoes-formulario">
+
+                <button
+                    class="botao-cinza"
+                    onclick="mostrarInicio()">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="botao-azul"
+                    onclick="salvarPerfil()">
+
+                    Salvar Perfil
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+function salvarPerfil() {
+
+    let usuario =
+        JSON.parse(
+            localStorage.getItem(
+                "usuarioLogado"
+            )
+        );
+
+    usuario.cargo =
+        document.getElementById(
+            "cargoPerfil"
+        ).value;
+
+    usuario.telefone =
+        document.getElementById(
+            "telefonePerfil"
+        ).value;
+
+    localStorage.setItem(
+        "usuarioLogado",
+        JSON.stringify(usuario)
+    );
+
+    const indice =
+        usuarios.findIndex(
+            u => u.email === usuario.email
+        );
+
+    if(indice !== -1){
+
+        usuarios[indice] = usuario;
+
+        localStorage.setItem(
+            "usuarios",
+            JSON.stringify(usuarios)
+        );
+
+    }
+
+    alert(
+        "Perfil atualizado com sucesso!"
+    );
+
+}
+
+function sairSistema() {
+
+    localStorage.removeItem(
+        "usuarioLogado"
+    );
+
+    location.reload();
 
 }
