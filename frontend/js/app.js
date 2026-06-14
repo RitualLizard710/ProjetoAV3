@@ -36,25 +36,25 @@ function entrar() {
         ).value;
 
     const usuario =
-        usuarios.find(
-            usuario =>
-                usuario.email === email
-                &&
-                usuario.senha === senha
-        );
+    usuarios.find(
+        usuario =>
+            usuario.email === email
+            &&
+            usuario.senha === senha
+    );
 
-    document.getElementById(
+if(!usuario){
+
+    alert(
+        "Email ou senha inválidos."
+    );
+
+    return;
+}
+
+document.getElementById(
     "nomeUsuarioTopo"
 ).textContent = usuario.nome;
-
-    if(!usuario){
-
-        alert(
-            "Email ou senha inválidos."
-        );
-
-        return;
-    }
 
     document
         .getElementById("telaLogin")
